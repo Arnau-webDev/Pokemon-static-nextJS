@@ -1,4 +1,5 @@
 import { Layout } from '@/components/layouts';
+import { Container } from '@nextui-org/react';
 import { NextPage } from 'next';
 
 const FavouritesPage: NextPage = () => {

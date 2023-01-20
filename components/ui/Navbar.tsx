@@ -24,7 +24,7 @@ export const Navbar: React.FC = () => {
             height={70}
         />
 
-        <NextLink href="/" passHref>
+        <NextLink legacyBehavior href="/" passHref>
           <Link>
             <Text color="white" h2>P</Text>
             <Text color="white" h3>okémon</Text>
@@ -33,7 +33,7 @@ export const Navbar: React.FC = () => {
 
         <Spacer css={{ flex: 1}}/>
 
-        <NextLink href="/favourites" passHref>
+        <NextLink legacyBehavior href="/favourites" passHref>
           <Link>
             <Text color="white" h3>Favoritos</Text>
           </Link>

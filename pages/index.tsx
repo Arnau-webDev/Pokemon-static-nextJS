@@ -1,4 +1,5 @@
 import { NextPage, GetStaticProps } from 'next';
+
 import { Grid } from '@nextui-org/react';
 
 import { Layout } from '../components/layouts';
