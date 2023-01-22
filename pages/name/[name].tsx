@@ -7,8 +7,10 @@ import confetti from 'canvas-confetti';
 
 import { Layout } from '../../components/layouts';
 import { Pokemon } from '../../interfaces/pokemon-item';
+import { pokeApi } from '@/api';
 import { Button, Card, Container, Grid, Image, Text } from '@nextui-org/react';
 import { getPokemonInfo, localFavourites } from '@/utils';
+import { PokemonListResponse } from '@/interfaces';
 
 interface PokemonPageProps {
   pokemon: Pokemon
@@ -108,11 +110,13 @@ const PokemonPage: NextPage<PokemonPageProps> = ({ pokemon}) => {
 
 export const getStaticPaths: GetStaticPaths = async (ctx) => {
 
-  const pokemons151 = [...Array(151)].map((value, index) => `${ index + 1}`);
+  const { data } = await pokeApi.get<PokemonListResponse>('/pokemon?limit=151');
+  
+  const pokemonNames151 = data.results.map( pokemon => ( pokemon.name ));
 
   return {
-    paths: pokemons151.map( id => ({
-      params: { id }
+    paths: pokemonNames151.map( name => ({
+      params: { name }
     })),
     fallback: false
   }
@@ -120,10 +124,10 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
   const { params } = ctx;
-  const { id } = params as { id: string};
+  const { name } = params as { name: string};
 
   // This is only executed at build time so no need for try catch
-  const pokemon = await getPokemonInfo(id);
+  const pokemon = await getPokemonInfo(name);
 
   return {
     props: {
